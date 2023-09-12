@@ -46,7 +46,10 @@ class _NewExpenseState extends State<NewExpense> {
           Row(
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(
+                      context); // forward the build context of the class to this method
+                },
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
