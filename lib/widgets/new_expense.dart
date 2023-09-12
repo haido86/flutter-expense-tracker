@@ -87,6 +87,9 @@ class _NewExpenseState extends State<NewExpense> {
               ),
             ],
           ),
+          const SizedBox(
+            height: 16,
+          ),
           Row(
             children: [
               DropdownButton(
@@ -110,6 +113,7 @@ class _NewExpenseState extends State<NewExpense> {
                   });
                 },
               ),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   Navigator.pop(
