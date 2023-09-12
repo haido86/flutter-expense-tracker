@@ -1,3 +1,4 @@
+import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/material.dart';
 
 class NewExpense extends StatefulWidget {
@@ -13,6 +14,7 @@ class _NewExpenseState extends State<NewExpense> {
   final _titleController =
       TextEditingController(); // after creating, need to have function to delete it after used
   final _amountController = TextEditingController();
+  DateTime? _selectedDate;
 
   @override
   void dispose() {
@@ -22,16 +24,19 @@ class _NewExpenseState extends State<NewExpense> {
     super.dispose();
   }
 
-  void _openDatePicker() {
+  void _openDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month, now.day);
 
-    showDatePicker(
+    var pickedDate = await showDatePicker(
       context: context,
       initialDate: now,
       firstDate: firstDate,
       lastDate: now,
     );
+    setState(() {
+      _selectedDate = pickedDate;
+    });
   }
 
   @override
@@ -67,7 +72,11 @@ class _NewExpenseState extends State<NewExpense> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text('Selected Date'),
+                    Text(
+                      _selectedDate == null
+                          ? 'No Selected Date'
+                          : formatter.format(_selectedDate!),
+                    ),
                     IconButton(
                       onPressed: _openDatePicker,
                       icon: const Icon(Icons.calendar_month),
