@@ -32,6 +32,12 @@ class _ExpensesState extends State<Expenses> {
     });
   }
 
+  void _removeExpense(Expense expense) {
+    setState(() {
+      _registerExpenses.remove(expense);
+    });
+  }
+
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
       isScrollControlled: true, //the overlay take all the screen
@@ -60,6 +66,7 @@ class _ExpensesState extends State<Expenses> {
             Expanded(
               child: ExpensesList(
                 expenses: _registerExpenses,
+                onRemoveExpense: _removeExpense,
               ),
             ),
           ],
