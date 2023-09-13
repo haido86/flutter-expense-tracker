@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-
 import 'package:expense_tracker/widgets/chart/chart_bar.dart';
 import 'package:expense_tracker/models/expense.dart';
 
 class Chart extends StatelessWidget {
-  const Chart({super.key, required this.expenses});
+  const Chart({
+    super.key,
+    required this.expenses,
+  });
 
   final List<Expense> expenses;
 
+  // Calculate expense buckets for different categories
   List<ExpenseBucket> get buckets {
     return [
       ExpenseBucket.forCategory(expenses, Category.food),
@@ -17,6 +20,7 @@ class Chart extends StatelessWidget {
     ];
   }
 
+  // Calculate the maximum total expense in all buckets
   double get maxTotalExpense {
     double maxTotalExpense = 0;
 
@@ -33,6 +37,7 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.symmetric(
@@ -46,7 +51,7 @@ class Chart extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             Theme.of(context).colorScheme.primary.withOpacity(0.3),
-            Theme.of(context).colorScheme.primary.withOpacity(0.0)
+            Theme.of(context).colorScheme.primary.withOpacity(0.0),
           ],
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
@@ -58,12 +63,13 @@ class Chart extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                for (final bucket in buckets) // alternative to map()
+                for (final bucket in buckets)
                   ChartBar(
+                    // Calculate the fill ratio for each bucket
                     fill: bucket.totalExpenses == 0
                         ? 0
                         : bucket.totalExpenses / maxTotalExpense,
-                  )
+                  ),
               ],
             ),
           ),
@@ -87,7 +93,7 @@ class Chart extends StatelessWidget {
                   ),
                 )
                 .toList(),
-          )
+          ),
         ],
       ),
     );

@@ -10,13 +10,15 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Determine the brightness mode of the platform
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4),
         child: FractionallySizedBox(
-          heightFactor: fill,
+          heightFactor: fill, // Set the height factor based on the fill value
           child: DecoratedBox(
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,

@@ -16,21 +16,22 @@ class ExpenseItem extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Text(expense.title),
+            Text(expense.title), // Display the title of the expense
             const SizedBox(
               height: 8,
             ),
             Row(
               children: [
                 Text(
-                  '\$${expense.amount.toStringAsFixed(2)}',
+                  '\$${expense.amount.toStringAsFixed(2)}', // Display the formatted amount
                 ),
-                const Spacer(),
+                const Spacer(), // Create space between elements
                 Row(
                   children: [
-                    Icon(categoryIcons[expense.category]),
+                    Icon(categoryIcons[
+                        expense.category]), // Display the category icon
                     Text(
-                      expense.formattedDate,
+                      expense.formattedDate, // Display the formatted date
                     ),
                   ],
                 ),

@@ -12,15 +12,14 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewExpense> {
-  final _titleController =
-      TextEditingController(); // after creating, need to have function to delete it after used
+  final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime? _selectedDate;
   Category _selectedCategory = Category.leisure;
 
   @override
   void dispose() {
-    // implement dispose
+    // Dispose of controllers when the widget is removed
     _titleController.dispose();
     _amountController.dispose();
     super.dispose();
@@ -47,25 +46,26 @@ class _NewExpenseState extends State<NewExpense> {
     if (_titleController.text.trim().isEmpty ||
         amountIsInvalid ||
         _selectedDate == null) {
-      //show error message
+      // Show an error dialog for invalid input
       showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-                title: const Text(
-                  'Invalid Input',
-                ),
-                content: const Text(
-                  'Please make sure to input valid title, amount, date and category...',
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(ctx);
-                    },
-                    child: const Text('Okay'),
-                  ),
-                ],
-              ));
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text(
+            'Invalid Input',
+          ),
+          content: const Text(
+            'Please make sure to input a valid title, amount, date, and category...',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay'),
+            ),
+          ],
+        ),
+      );
       return;
     }
     widget.onAddExpense(
@@ -89,7 +89,7 @@ class _NewExpenseState extends State<NewExpense> {
             controller: _titleController,
             maxLength: 50,
             decoration: const InputDecoration(
-              label: Text('Title'),
+              labelText: 'Title',
             ),
           ),
           Row(
@@ -100,7 +100,7 @@ class _NewExpenseState extends State<NewExpense> {
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     prefixText: '\$ ',
-                    label: Text('Amount'),
+                    labelText: 'Amount',
                   ),
                 ),
               ),
@@ -136,7 +136,7 @@ class _NewExpenseState extends State<NewExpense> {
                 items: Category.values
                     .map(
                       (category) => DropdownMenuItem(
-                        value: category, // must be provided
+                        value: category,
                         child: Text(
                           category.name.toUpperCase(),
                         ),
@@ -155,8 +155,7 @@ class _NewExpenseState extends State<NewExpense> {
               const Spacer(),
               TextButton(
                 onPressed: () {
-                  Navigator.pop(
-                      context); // forward the build context of the class to this method
+                  Navigator.pop(context);
                 },
                 child: const Text('Cancel'),
               ),
