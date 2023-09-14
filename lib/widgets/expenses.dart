@@ -73,6 +73,7 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     // Determine the main content based on whether there are expenses or not
     Widget mainContent =
         const Center(child: Text('No Expense available. Start adding some!'));
@@ -93,14 +94,27 @@ class _ExpensesState extends State<Expenses> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Chart(expenses: _registerExpenses), // Display the chart
-          Expanded(
-            child: mainContent, // Display the list of expenses or a message
-          ),
-        ],
-      ),
+      body: width < 600
+          ? Column(
+              children: [
+                Chart(expenses: _registerExpenses), // Display the chart
+                Expanded(
+                  child:
+                      mainContent, // Display the list of expenses or a message
+                ),
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(
+                  child: Chart(expenses: _registerExpenses),
+                ), // Display the chart
+                Expanded(
+                  child:
+                      mainContent, // Display the list of expenses or a message
+                ),
+              ],
+            ),
     );
   }
 }
