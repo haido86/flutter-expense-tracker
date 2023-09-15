@@ -63,6 +63,7 @@ class _ExpensesState extends State<Expenses> {
   void _openAddExpenseOverlay() {
     // Open the NewExpense overlay for adding a new expense
     showModalBottomSheet(
+      constraints: const BoxConstraints(minWidth: double.infinity),
       useSafeArea: true,
       isScrollControlled: true,
       context: context,
